@@ -5,11 +5,12 @@ module GoogleVisualr
 
     DEFAULT_VERSION = "1.0".freeze
 
-    attr_accessor :data_table, :listeners, :version, :language, :material
+    attr_accessor :data_table, :listeners, :actions, :version, :language, :material
 
     def initialize(data_table, options={})
       @data_table  = data_table
       @listeners   = []
+      @actions     = []
       @version     = options.delete(:version)  || DEFAULT_VERSION
       @language    = options.delete(:language)
       @material    = options.delete(:material) || false
@@ -55,6 +56,10 @@ module GoogleVisualr
     def add_listener(event, callback)
       @listeners << { :event => event.to_s, :callback => callback }
     end
+    
+    def add_action(id, text, action)
+      @actions << { :id => id, :text => text, :action => action }
+    end
 
     # Generates JavaScript and renders the Google Chart in the final HTML output.
     #
@@ -90,6 +95,9 @@ module GoogleVisualr
       js << "\n    var chart = new google.#{chart_class}.#{chart_name}(document.getElementById('#{element_id}'));"
       @listeners.each do |listener|
         js << "\n    google.visualization.events.addListener(chart, '#{listener[:event]}', #{listener[:callback]});"
+      end
+      @actions.each do |a|
+        js << "\n    chart.setAction({id: '#{a[:id]}', text: '#{a[:text]}', action: #{a[:id]} });"
       end
       js << "\n    chart.draw(data_table, #{js_parameters(@options)});"
       js << "\n  };"
