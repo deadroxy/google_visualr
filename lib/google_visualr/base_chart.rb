@@ -97,7 +97,7 @@ module GoogleVisualr
         js << "\n    google.visualization.events.addListener(chart, '#{listener[:event]}', #{listener[:callback]});"
       end
       @actions.each do |a|
-        js << "\n    chart.setAction({id: '#{a[:id]}', text: '#{a[:text]}', action: #{a[:id]} });"
+        js << "\n    chart.setAction({id: '#{a[:id]}', text: '#{a[:text]}', action: #{a[:action]} });"
       end
       js << "\n    chart.draw(data_table, #{js_parameters(@options)});"
       js << "\n  };"
