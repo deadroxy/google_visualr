@@ -1,5 +1,9 @@
 ## Change Log
 
+### Version 2.5.2
+
+* Modify typecasting so that all Ruby Time objects have empty/zero dates when converted to JS.
+
 ### Version 2.5.1
 
 * [Pull Request 98](https://github.com/winston/google_visualr/pull/97) Do not force `en` as the default language.
