@@ -51,15 +51,15 @@ describe "GoogleVisualr::ParamsHelper" do
       assert_equal(true , "true" )
       assert_equal(false, "false")
     end
+    
+    it "returns time" do
+      time     = Time.now
+      expected = "new Date(0, 0, 0, #{date.hour}, #{date.min}, #{date.sec})"
+      assert_equal(time, expected)
+    end
 
     it "returns datetime" do
       date     = DateTime.now
-      expected = "new Date(#{date.year}, #{date.month-1}, #{date.day}, #{date.hour}, #{date.min}, #{date.sec})"
-      assert_equal(date, expected)
-    end
-
-    it "returns time" do
-      date     = Time.now
       expected = "new Date(#{date.year}, #{date.month-1}, #{date.day}, #{date.hour}, #{date.min}, #{date.sec})"
       assert_equal(date, expected)
     end
